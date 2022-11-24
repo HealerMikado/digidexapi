@@ -1,10 +1,10 @@
 import aws_cdk as core
 import aws_cdk.assertions as assertions
 
-from infra.infra_stack import InfraStack
+from infra.digi_dex_stak import InfraStack
 
 # example tests. To run these tests, uncomment this file along with the example
-# resource in infra/infra_stack.py
+# resource in infra/digi_dex_stak.py
 def test_sqs_queue_created():
     app = core.App()
     stack = InfraStack(app, "infra")
