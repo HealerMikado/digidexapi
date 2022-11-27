@@ -160,6 +160,7 @@ class DigiDexStack(Stack):
             self, "digidexapi-lambda-role",
             assumed_by=iam.ServicePrincipal("lambda.amazonaws.com"),
         )
+        )
 
         # It's ugly but bug in the cdk, cannot get the resource id.
         db_user_arn = f'arn:aws:rds-db:{Stack.of(self).region}:{Stack.of(self).account}:dbuser:*/postgres'
@@ -170,7 +171,7 @@ class DigiDexStack(Stack):
         )
         s3_image.grant_read(lambda_role)
         lambda_role.add_managed_policy(
-            iam.ManagedPolicy.from_aws_managed_policy_name(
+            iam.ManagedPolicy.from_aws_managed_policy_name())
 
         digidex_lambda = python.PythonFunction(
             self, "digidex-lambda",

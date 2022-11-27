@@ -1,0 +1,11 @@
+Resources:
+  Function:
+    Type: AWS::Serverless::Function
+    Properties:
+      Timeout: 300
+      MemorySize: 1000
+      Handler: app.lambda_handler
+      CodeUri: C:\Users\VEDA\Documents\aws cloud architect\digimon_api\infra\lambda-handler\hello_world
+      Runtime: python3.9
+      Architectures:
+        - x86_64

@@ -3,26 +3,37 @@ import os
 
 import aws_cdk as cdk
 
-from digidexapi_stack.digidex_api_stak import DigiDexStack
-
+from digidexapi.component import DigidexAPI
 
 app = cdk.App()
-DigiDexStack(app, "DigiDex",
-    # If you don't specify 'env', this stack will be environment-agnostic.
-    # Account/Region-dependent features and context lookups will not work,
-    # but a single synthesized template can be deployed anywhere.
+front_cert_arn = 'arn:aws:acm:us-east-1:324873085553:certificate/eeeb907a-ccc9-4a23-a504-197152bbe67f'
+front_domain_name = ["www.digidexapi.com", "digidexapi.com"]
+api_cert_arn = "arn:aws:acm:eu-west-3:324873085553:certificate/e2f883ba-17bf-4aea-a4df-08d5abe9067a"
+api_domain_name = "api.digidexapi.com"
+db_user="digidex_api"
 
-    # Uncomment the next line to specialize this stack for the AWS Account
-    # and Region that are implied by the current CLI configuration.
 
-    env=cdk.Environment(account=os.getenv('CDK_DEFAULT_ACCOUNT'), region=os.getenv('CDK_DEFAULT_REGION')),
+digidexapi = DigidexAPI(
+    app,
+    "DigidexApi",
+    env=cdk.Environment(
+        account=os.getenv('CDK_DEFAULT_ACCOUNT'),
+        region=os.getenv('CDK_DEFAULT_REGION')
+    ),
+    frontend_cert_arn=front_cert_arn,
+    backend_cert_arn=api_cert_arn,
+    frontend_domain_names=front_domain_name,
+    api_domain_name=api_domain_name,
+    db_user=db_user
+)
 
-    # Uncomment the next line if you know exactly what Account and Region you
-    # want to deploy the stack to. */
 
-    #env=cdk.Environment(account='123456789012', region='us-east-1'),
+# Uncomment the next line if you know exactly what Account and Region you
+# want to deploy the stack to. */
 
-    # For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
-    )
-cdk.Tags.of(app).add("app", "digidexapi")
+# env=cdk.Environment(account='123456789012', region='us-east-1'),
+
+# For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
+
+cdk.Tags.of(digidexapi).add("app", "digidexapi")
 app.synth()
