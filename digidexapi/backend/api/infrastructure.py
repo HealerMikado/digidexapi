@@ -1,19 +1,16 @@
-import os
 import pathlib
 
-from constructs import Construct
-import aws_cdk.aws_rds as rds
+import aws_cdk.aws_apigateway as apigateway
+import aws_cdk.aws_certificatemanager as acm
 import aws_cdk.aws_ec2 as ec2
+import aws_cdk.aws_iam as iam
 import aws_cdk.aws_lambda as lambda_
 import aws_cdk.aws_lambda_python_alpha as python
-import aws_cdk.aws_apigateway as apigateway
-import aws_cdk.aws_iam as iam
-import aws_cdk.aws_s3 as s3
-import aws_cdk.aws_ssm as ssm
-import aws_cdk.aws_certificatemanager as acm
 import aws_cdk.aws_route53 as route53
 import aws_cdk.aws_route53_targets as targets
-from aws_cdk import Stack, Duration
+import aws_cdk.aws_s3 as s3
+import aws_cdk.aws_ssm as ssm
+from aws_cdk import Duration, Stack
 from constructs import Construct
 
 

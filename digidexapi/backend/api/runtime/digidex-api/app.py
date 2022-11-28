@@ -1,16 +1,16 @@
 import logging
 from typing import Union
 
-from fastapi import FastAPI, Depends
-from fastapi.middleware.cors import CORSMiddleware
-import uvicorn
-from mangum import Mangum
 from sqlalchemy.orm import Session
 
 import crud
 import schemas
 import utils
+import uvicorn
 from database import SessionLocal
+from fastapi import Depends, FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from mangum import Mangum
 
 app = FastAPI()
 logger = logging.getLogger()

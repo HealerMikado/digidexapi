@@ -3,11 +3,10 @@ from typing import Any
 import aws_cdk as cdk
 import aws_cdk.aws_ec2 as ec2
 from constructs import Construct
-
-from digidexapi.backend.network.infrastructure import Network
 from digidexapi.backend.api.infrastructure import API
 from digidexapi.backend.database.infrastructure import Database
 from digidexapi.backend.images_bucket.infrastructure import ImagesBucket
+from digidexapi.backend.network.infrastructure import Network
 
 
 class Backend(Construct):

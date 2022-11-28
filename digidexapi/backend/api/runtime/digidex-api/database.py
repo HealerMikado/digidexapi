@@ -1,12 +1,14 @@
 import logging
 import os
-import boto3
+
 import psycopg2
 import sqlalchemy
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from dotenv import load_dotenv
+
+import boto3
 
 if not os.getenv("DB_USER"):
     load_dotenv()

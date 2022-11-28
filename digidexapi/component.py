@@ -1,8 +1,7 @@
 import typing
 
 import constructs
-from aws_cdk import Stack, Environment, IStackSynthesizer
-
+from aws_cdk import Environment, IStackSynthesizer, Stack
 from digidexapi.backend.component import Backend
 from digidexapi.frontend.component import Frontend
 
@@ -37,3 +36,5 @@ class DigidexAPI(Stack):
             api_domain_name=api_domain_name,
             db_user=db_user
         )
+
+        self.api_endpoint = back.api_endpoint

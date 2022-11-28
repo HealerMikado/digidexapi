@@ -1,8 +1,7 @@
 from typing import List, Union
 
-from pydantic import BaseModel, validator
-
 import utils
+from pydantic import BaseModel, validator
 
 
 class Pagination(BaseModel):

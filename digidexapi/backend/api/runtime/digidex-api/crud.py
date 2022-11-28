@@ -1,6 +1,6 @@
 from typing import Union
 
-from sqlalchemy.orm import Session, joinedload, join
+from sqlalchemy.orm import Session, join, joinedload
 
 import models
 

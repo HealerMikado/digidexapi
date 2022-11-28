@@ -2,9 +2,9 @@ import logging
 import os
 
 import boto3
+import schemas
 from botocore.exceptions import ClientError
 
-import schemas
 
 def create_presigned_url(digimon_name: str,thumbnail:bool, expiration=3600):
     """Generate a presigned URL to share an S3 object
