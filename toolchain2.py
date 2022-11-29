@@ -38,8 +38,8 @@ class Toolchain(cdk.Stack):
             repo_string="HealerMikado/digidexapi",
             branch="main",
             authentication=cdk.SecretValue.secrets_manager(
-                "github_token",
-                json_field="token"),
+                "github_token", json_field="token"
+            ),
         )
 
         build_spec = {"phases": {"install": {"runtime-versions": {"python": "3.9"}}}}
