@@ -22,4 +22,4 @@ set -o verbose
 npm install
 
 # Install project dependencies
-pip install -r digidexapi/backend/api/runtime/digidex-api/requirements.txt -r requirements.txt -r requirements-dev.txt
+pip install -r digidexapi/backend/api/runtime/digidex_api/requirements.txt -r requirements.txt -r requirements-dev.txt
