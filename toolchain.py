@@ -23,6 +23,7 @@ import aws_cdk.aws_dynamodb as dynamodb
 import constants
 from aws_cdk import pipelines
 from constructs import Construct
+
 from digidexapi.component import DigidexAPI
 
 GITHUB_CONNECTION_ARN = "CONNECTION_ARN"
@@ -48,8 +49,8 @@ class Toolchain(cdk.Stack):
             "Synth",
             input=source,
             partial_build_spec=codebuild.BuildSpec.from_object(build_spec),
-            install_commands=["./scripts/install-deps.sh"],
-            commands=["./scripts/run-tests.sh", "npx cdk synth"],
+            install_commands=["chmod 777 ./scripts/install-deps.sh", "./scripts/install-deps.sh"],
+            commands=["chmod 777 ./scripts/run-tests.sh","./scripts/run-tests.sh", "npx cdk synth"],
             primary_output_directory="cdk.out",
         )
         pipeline = pipelines.CodePipeline(

@@ -2,15 +2,12 @@ import json
 import os
 import pathlib
 import typing
-from typing import Any
 
 import aws_cdk as cdk
 import aws_cdk.aws_codebuild as codebuild
-import aws_cdk.aws_codepipeline as codepipeline
-import aws_cdk.aws_codepipeline_actions as codepipeline_actions
-import aws_cdk.aws_ssm as ssm
 from aws_cdk import pipelines
 from constructs import Construct
+
 from digidexapi.component import DigidexAPI
 
 GITHUB_OWNER = "HealerMikado"
@@ -22,34 +19,41 @@ PRODUCTION_ENV_REGION = "eu-west-3"
 
 
 class Toolchain(cdk.Stack):
-    def __init__(self, scope: Construct, id_: str, *,
-                 api_lambda_reserved_concurrency: int = 1,
-                 frontend_cert_arn=None,
-                 backend_cert_arn=None,
-                 frontend_domain_names=None,
-                 api_domain_name=None,
-                 db_user: str = None,
-                 **kwargs: typing.Any):
+    def __init__(
+        self,
+        scope: Construct,
+        id_: str,
+        *,
+        api_lambda_reserved_concurrency: int = 1,
+        frontend_cert_arn=None,
+        backend_cert_arn=None,
+        frontend_domain_names=None,
+        api_domain_name=None,
+        db_user: str = None,
+        **kwargs: typing.Any,
+    ):
         super().__init__(scope, id_, **kwargs)
 
         source = pipelines.CodePipelineSource.git_hub(
             repo_string="HealerMikado/digidexapi",
             branch="main",
-            authentication=cdk.SecretValue.unsafe_plain_text(
-                os.getenv("TOKEN_GITHUB")),
+            authentication=cdk.SecretValue.unsafe_plain_text(os.getenv("TOKEN_GITHUB")),
         )
 
-        build_spec = {"phases": {
-            "install": {
-                "runtime-versions": {"python": "3.9"}
-            }
-        }}
+        build_spec = {"phases": {"install": {"runtime-versions": {"python": "3.9"}}}}
         synth = pipelines.CodeBuildStep(
             "Synth",
             input=source,
             partial_build_spec=codebuild.BuildSpec.from_object(build_spec),
-            install_commands=["./scripts/install-deps.sh"],
-            commands=["./scripts/run-tests.sh", "npx cdk synth"],
+            install_commands=[
+                "chmod 777 ./scripts/install-deps.sh",
+                "./scripts/install-deps.sh",
+            ],
+            commands=[
+                "chmod 777 ./scripts/run-tests.sh",
+                "./scripts/run-tests.sh",
+                "npx cdk synth",
+            ],
             primary_output_directory="cdk.out",
         )
         pipeline = pipelines.CodePipeline(
@@ -67,7 +71,7 @@ class Toolchain(cdk.Stack):
             backend_cert_arn=backend_cert_arn,
             frontend_domain_names=frontend_domain_names,
             api_domain_name=api_domain_name,
-            db_user=db_user
+            db_user=db_user,
         )
 
     @staticmethod
@@ -81,13 +85,14 @@ class Toolchain(cdk.Stack):
         return cdk_cli_version
 
     @staticmethod
-    def _add_production_stage(pipeline: pipelines.CodePipeline,
-                              frontend_cert_arn,
-                              backend_cert_arn,
-                              frontend_domain_names,
-                              api_domain_name,
-                              db_user
-                              ) -> None:
+    def _add_production_stage(
+        pipeline: pipelines.CodePipeline,
+        frontend_cert_arn,
+        backend_cert_arn,
+        frontend_domain_names,
+        api_domain_name,
+        db_user,
+    ) -> None:
         production = cdk.Stage(
             pipeline,
             PRODUCTION_ENV_NAME,
@@ -102,7 +107,7 @@ class Toolchain(cdk.Stack):
             backend_cert_arn=backend_cert_arn,
             frontend_domain_names=frontend_domain_names,
             api_domain_name=api_domain_name,
-            db_user=db_user
+            db_user=db_user,
         )
         api_endpoint_env_var_name = "DigidexApi_API_ENDPOINT"
         smoke_test_commands = [f"curl ${api_endpoint_env_var_name}"]

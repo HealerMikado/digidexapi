@@ -1,4 +1,0 @@
-sqlalchemy
-fastapi[all]
-mangum
-psycopg2-binary

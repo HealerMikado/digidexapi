@@ -15,19 +15,18 @@ class Network(Construct):
         super().__init__(scope, id_)
         self.vpc = ec2.Vpc(
             self,
-            'Digidexapi_VPC',
+            "Digidexapi_VPC",
             ip_addresses=ec2.IpAddresses.cidr("10.0.0.0/22"),
             subnet_configuration=[
                 ec2.SubnetConfiguration(
                     cidr_mask=26,
-                    name='rds',
-                    subnet_type=ec2.SubnetType.PRIVATE_ISOLATED),
+                    name="rds",
+                    subnet_type=ec2.SubnetType.PRIVATE_ISOLATED,
+                ),
                 ec2.SubnetConfiguration(
                     cidr_mask=26,
-                    name='public',
+                    name="public",
                     subnet_type=ec2.SubnetType.PUBLIC,
-                )]
+                ),
+            ],
         )
-
-
-
