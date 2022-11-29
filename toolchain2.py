@@ -37,7 +37,9 @@ class Toolchain(cdk.Stack):
         source = pipelines.CodePipelineSource.git_hub(
             repo_string="HealerMikado/digidexapi",
             branch="main",
-            authentication=cdk.SecretValue.unsafe_plain_text(os.getenv("TOKEN_GITHUB")),
+            authentication=cdk.SecretValue.secrets_manager(
+                "github_token",
+                json_field="token"),
         )
 
         build_spec = {"phases": {"install": {"runtime-versions": {"python": "3.9"}}}}
