@@ -96,7 +96,6 @@ class Toolchain(cdk.Stack):
     ) -> None:
         production = cdk.Stage(
             pipeline,
-            PRODUCTION_ENV_NAME,
             env=cdk.Environment(
                 account=PRODUCTION_ENV_ACCOUNT, region=PRODUCTION_ENV_REGION
             ),
