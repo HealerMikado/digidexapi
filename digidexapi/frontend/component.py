@@ -29,7 +29,6 @@ class Frontend(Construct):
             public_read_access=True,
             removal_policy=RemovalPolicy.RETAIN,
             website_index_document="index.html",
-            bucket_name="digidexapi-front",
         )
         # Route 53 hosted zone
         self.public_hosted_zone = route53.PublicHostedZone(

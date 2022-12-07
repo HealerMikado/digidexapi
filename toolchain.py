@@ -109,7 +109,6 @@ class Toolchain(cdk.Stack):
             frontend_domain_names=frontend_domain_names,
             api_domain_name=api_domain_name,
             db_user=db_user,
-            stack_name="DigidexApi",
         )
         api_endpoint_env_var_name = "DigidexApi_API_ENDPOINT"
         smoke_test_commands = [f"curl ${api_endpoint_env_var_name}"]

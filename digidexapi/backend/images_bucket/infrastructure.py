@@ -12,5 +12,4 @@ class ImagesBucket(Construct):
             "digidexapi-images",
             block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
             removal_policy=RemovalPolicy.RETAIN,
-            bucket_name="digidexapi-images",
         )
