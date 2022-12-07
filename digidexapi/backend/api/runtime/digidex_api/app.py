@@ -6,7 +6,8 @@ import schemas
 import utils
 import uvicorn
 from database import SessionLocal
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI
+from fastapi import Depends
 from fastapi.middleware.cors import CORSMiddleware
 from mangum import Mangum
 from sqlalchemy.orm import Session
