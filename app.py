@@ -1,10 +1,10 @@
 import os
 
+import aws_cdk as cdk
 from dotenv import load_dotenv
 
-import aws_cdk as cdk
 from digidexapi.component import DigidexAPI
-from toolchain2 import Toolchain
+from toolchain import Toolchain
 
 load_dotenv()
 app = cdk.App()
