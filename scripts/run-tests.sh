@@ -18,7 +18,7 @@
 set -o errexit
 set -o verbose
 
-targets=(digidexapi tests app.py toolchain2.py)
+targets=(digidexapi tests app.py toolchain.py)
 
 # Find common security issues (https://bandit.readthedocs.io)
 bandit -c bandit.yml --recursive "${targets[@]}"
