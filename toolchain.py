@@ -100,7 +100,6 @@ class Toolchain(cdk.Stack):
             env=cdk.Environment(
                 account=PRODUCTION_ENV_ACCOUNT, region=PRODUCTION_ENV_REGION
             ),
-
         )
         digidex_api = DigidexAPI(
             production,
