@@ -23,7 +23,6 @@ import aws_cdk.aws_dynamodb as dynamodb
 import constants
 from aws_cdk import pipelines
 from constructs import Construct
-
 from digidexapi.component import DigidexAPI
 
 GITHUB_CONNECTION_ARN = "CONNECTION_ARN"

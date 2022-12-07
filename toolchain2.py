@@ -6,7 +6,6 @@ import aws_cdk as cdk
 import aws_cdk.aws_codebuild as codebuild
 from aws_cdk import pipelines
 from constructs import Construct
-
 from digidexapi.component import DigidexAPI
 
 GITHUB_OWNER = "HealerMikado"
@@ -96,7 +95,7 @@ class Toolchain(cdk.Stack):
     ) -> None:
         production = cdk.Stage(
             pipeline,
-            PRODUCTION_ENV_NAME,
+            "",
             env=cdk.Environment(
                 account=PRODUCTION_ENV_ACCOUNT, region=PRODUCTION_ENV_REGION
             ),
