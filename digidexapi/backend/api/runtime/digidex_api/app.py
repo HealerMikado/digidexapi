@@ -12,7 +12,28 @@ from fastapi.middleware.cors import CORSMiddleware
 from mangum import Mangum
 from sqlalchemy.orm import Session
 
-app = FastAPI()
+
+description = """
+DigidexApi is a simple side project about Digimons. It's a serverless application
+backed by AWS lambda and an API gateway. It use fastApi and Mangum for simplicity.
+
+So basically you can get data about Digimons. I'm not a Digimons expert and I just
+get data from the Digimon wikia. So some data can be missing or outdated.
+"""
+
+app = FastAPI(
+    title="DigidexApi",
+    description=description,
+    version="0.0.1",
+    contact={
+        "name": "Rémi Pépin",
+        "url": "https://www.linkedin.com/in/remi-pepin/",
+    },
+    license_info={
+        "name": "Apache 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+    },
+)
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 
@@ -34,7 +55,10 @@ def get_db():
         db.close()
 
 
-@app.get("/digimon", response_model=schemas.Page)
+@app.get("/digimon", response_model=schemas.Page,
+description="""Return all the Digimon of the application
+
+""")
 def get_all_digimons(
     page_size: int = 10,
     page: int = 1,
@@ -186,11 +210,6 @@ def get_all_skills(
     path = "/skill"
     pagination = utils.paginaton(path, count_skills, page, page_size, len(skills))
     return schemas.Page(content=skills, pagination=pagination)
-
-
-@app.get("/hello")
-def hello_world():
-    return {"hello": "world"}
 
 
 handler = Mangum(app)

@@ -21,6 +21,11 @@ class Database(Construct):
         engine: rds.IInstanceEngine = ENGINE,
         port: int = 5432
     ) -> None:
+        """
+        Handle the DB creation :
+        - DB SG
+        - DB instance
+        """
         super().__init__(scope, id_)
         self.port = port
 
@@ -28,7 +33,6 @@ class Database(Construct):
         self.db_sg = ec2.SecurityGroup(
             self,
             "Digidexapi_db_SG",
-            security_group_name="Digidexapi-db-SG",
             vpc=vpc,
             allow_all_outbound=False,
         )

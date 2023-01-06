@@ -5,6 +5,9 @@ from constructs import Construct
 
 class ImagesBucket(Construct):
     def __init__(self, scope: Construct, id_: str) -> None:
+        """
+        The bucket with the images
+        """
         super().__init__(scope, id_)
 
         self.bucket = s3.Bucket(

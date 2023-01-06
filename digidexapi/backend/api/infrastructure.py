@@ -30,8 +30,20 @@ class API(Construct):
         image_bucket: s3.Bucket,
         port: int = 5432,
     ) -> None:
+
+        """
+        Handle the webservice part. Will create :
+        - role for the lambda :
+            - grant rds-db access (authentification with IAM)
+            - execution in VPC
+        - a SG for the lambda for more security
+        - the lambda with the python code and all env useful env var
+        - the API gateway with Arecord and the proxy integration
+
+        """
         super().__init__(scope, id_)
-        # Lambda
+
+        # Lambda's role
         self.lambda_role = iam.Role(
             self,
             "Digidexapi_lambda_role",
@@ -60,7 +72,6 @@ class API(Construct):
         self.lambda_sg = ec2.SecurityGroup(
             self,
             "Digidexapi_lambda_SG",
-            security_group_name="Digidexapi-lambda-SG",
             vpc=vpc,
             allow_all_outbound=False,
         )
